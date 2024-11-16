@@ -1,13 +1,19 @@
 import cv2
 import torch
+import json
 from ultralytics import YOLO
 
 device = torch.device('cpu')
 
+data = {
+    'video_path': 'python/assets/vid.mp4',
+    'dudes_visible': 0
+}
+
 model = YOLO("yolo11n.pt")
 model.to(device)
 
-cap = cv2.VideoCapture('vid.mp4')
+cap = cv2.VideoCapture(data['video_path'])
 
 max_people_detected = 0
 
@@ -51,3 +57,8 @@ cap.release()
 cv2.destroyAllWindows()
 
 print(f'Máximo de pessoas detectadas em qualquer frame: {max_people_detected}')
+data['dudes_visible'] = max_people_detected
+
+
+with open('config.json', 'w') as f:
+    json.dump(data, f)

@@ -1,0 +1,13 @@
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe.config
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\bin\Release\WindowsFormsApp1.exe
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\bin\Release\WindowsFormsApp1.pdb
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\bin\Release\Newtonsoft.Json.dll
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\bin\Release\Newtonsoft.Json.xml
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Form1.resources
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsF.A1EEDF9B.Up2Date
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.exe
+C:\Users\luk\Desktop\ai-pattern\VisualStudio\AISHOP\WindowsFormsApp1\obj\Release\WindowsFormsApp1.pdb

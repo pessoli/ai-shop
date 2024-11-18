@@ -7,7 +7,9 @@ device = torch.device('cpu')
 
 data = {
     'video_path': 'python/assets/vid.mp4',
-    'dudes_visible': 0
+    'dudes_visible': 0,
+    'started_recording': 0,
+    'ended_recording': 0
 }
 
 model = YOLO("yolo11n.pt")

@@ -7,7 +7,7 @@ from ultralytics import YOLO
 
 device = torch.device('cpu')
 
-
+jsonPath = "C:\\Users\\luk\\Desktop\\ai-pattern\\config.json"
 # data = {
 #     'video_path': 'w',
 #     'dudes_visible': 0,
@@ -15,11 +15,11 @@ device = torch.device('cpu')
 #     'ended_recording': 0
 # }
 
-def startAI(video):
+def startAI(data):
     model = YOLO("yolo11n.pt")
     model.to(device)
 
-    cap = cv2.VideoCapture(video)
+    cap = cv2.VideoCapture(data['video_path'])
 
     max_people_detected = 0
 
@@ -61,9 +61,12 @@ def startAI(video):
 
     cap.release()
     cv2.destroyAllWindows()
+    data['dudes_visible'] = max_people_detected
+
+    with open(jsonPath, 'w') as f:
+        json.dump(data,f)
 
 def createJson():
-    jsonPath = "C:\\Users\\luk\\Desktop\\ai-pattern\\config.json"
 
     # Verifica se o arquivo já existe
     if os.path.exists(jsonPath):
@@ -75,7 +78,7 @@ def createJson():
             
             # Aqui você pode adicionar modificações nos dados carregados
             # Por exemplo, alterar 'video_path' ou qualquer outra coisa
-            startAI(data['video_path'])
+            startAI(data)
             time.sleep(20)
             
 
@@ -98,9 +101,6 @@ def createJson():
 createJson()
 
 
-
-# print(f'Máximo de pessoas detectadas em qualquer frame: {max_people_detected}')
-# data['dudes_visible'] = max_people_detected
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ namespace WindowsFormsApp1
         }
 
         string originalFilePath = @"C:\Users\luk\Desktop\ai-pattern\config.json";
+        string pythonPath = @"C:\Users\luk\Desktop\ai-pattern\python/main.py";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -33,6 +35,14 @@ namespace WindowsFormsApp1
                         jsonObject["video_path"] = selectedFilePath;
 
                         File.WriteAllText(originalFilePath, jsonObject.ToString());
+
+                        try
+                        {
+                            Process.Start(new ProcessStartInfo(pythonPath));
+                        }catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
                     }
                     catch (JsonReaderException ex)
                     {

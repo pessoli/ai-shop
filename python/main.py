@@ -8,12 +8,6 @@ from ultralytics import YOLO
 device = torch.device('cpu')
 
 jsonPath = "C:\\Users\\luk\\Desktop\\ai-pattern\\config.json"
-# data = {
-#     'video_path': 'w',
-#     'dudes_visible': 0,
-#     'started_recording': 0,
-#     'ended_recording': 0
-# }
 
 def startAI(data):
     model = YOLO("yolo11n.pt")
@@ -34,7 +28,7 @@ def startAI(data):
         current_visible_people = []
         for detection in detections:
             x_center, y_center, width, height = detection.xywh[0].tolist()
-            class_id = int(detection.cls[0].item())  # Classe da detecção (0 para pessoa)
+            class_id = int(detection.cls[0].item())  # 0 = person
             
             if class_id == 0:
                 if 0 < x_center - width/2 < frame.shape[1] and 0 < x_center + width/2 < frame.shape[1] and \
@@ -55,7 +49,6 @@ def startAI(data):
 
         cv2.imshow('Detecção de Pessoas', frame)
 
-        # Pressione 'q' para sair
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
@@ -67,21 +60,14 @@ def startAI(data):
         json.dump(data,f)
 
 def createJson():
-
-    # Verifica se o arquivo já existe
     if os.path.exists(jsonPath):
         print("config existe")
         with open(jsonPath, 'r') as f:
-            # Carregar os dados do arquivo JSON
             data = json.load(f)
             print("Dados carregados do arquivo:", data)
             
-            # Aqui você pode adicionar modificações nos dados carregados
-            # Por exemplo, alterar 'video_path' ou qualquer outra coisa
             startAI(data)
-            time.sleep(20)
             
-
     else:
         print("config não existe, criando novo arquivo")
         data = {

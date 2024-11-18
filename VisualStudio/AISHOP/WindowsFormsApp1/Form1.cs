@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
 
         string originalFilePath = @"C:\Users\luk\Desktop\ai-pattern\config.json";
         string pythonPath = @"C:\Users\luk\Desktop\ai-pattern\python/main.py";
+        string connectionString = "Host=localhost;Username=postgres;Password=admin;Database=shop";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -38,8 +39,17 @@ namespace WindowsFormsApp1
 
                         try
                         {
-                            Process.Start(new ProcessStartInfo(pythonPath));
-                        }catch(Exception ex)
+                            ProcessStartInfo startInfo = new ProcessStartInfo(pythonPath);
+                            using (Process process = Process.Start(startInfo))
+                            {
+                                if (process != null)
+                                {
+                                    process.WaitForExit();
+                                    Console.WriteLine("O script Python terminou de ser executado.");
+                                }
+                            }
+                        }
+                        catch(Exception ex)
                         {
                             Console.WriteLine(ex.ToString());
                         }
@@ -50,7 +60,7 @@ namespace WindowsFormsApp1
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        MessageBox.Show("Not allowed to choose a file, open as adm.");
+                        MessageBox.Show("Not allowed to choose a file, open as adm." + ex.ToString());
                     }
                     catch (IOException ex)
                     {

@@ -1,7 +1,6 @@
 {
     "video_path": "python/assets/vid.mp4",
-    "dudes_visible": 14,
+    "dudes_visible": 0,
     "started_recording": 0,
     "ended_recording": 0
-  }
-  
+}

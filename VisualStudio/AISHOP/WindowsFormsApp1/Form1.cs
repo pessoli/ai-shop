@@ -13,7 +13,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        string originalFilePath = @"C:\config.json";
+        string originalFilePath = @"C:\Users\luk\Desktop\ai-pattern\config.json";
 
         private void button1_Click(object sender, EventArgs e)
         {

@@ -1,16 +1,36 @@
 import cv2
 import torch
 import json
+import os
 from ultralytics import YOLO
 
 device = torch.device('cpu')
 
 data = {
-    'video_path': 'python/assets/vid.mp4',
-    'dudes_visible': 0,
-    'started_recording': 0,
-    'ended_recording': 0
+'video_path': 'w',
+'dudes_visible': 0,
+'started_recording': 0,
+'ended_recording': 0
 }
+
+def createJson():
+    jsonPath = "config.json"
+
+    if os.path.exists(jsonPath):
+        with open('config.json') as f:
+            data = json.load(f)
+            print(data['video_path'])
+    else:
+        data = {
+        'video_path': 'r',
+        'dudes_visible': 0,
+        'started_recording': 0,
+        'ended_recording': 0
+        }
+        with open(jsonPath, 'w') as json_file:
+            json.dump(data, json_file, indent=4)
+
+createJson()
 
 model = YOLO("yolo11n.pt")
 model.to(device)
@@ -62,5 +82,4 @@ print(f'Máximo de pessoas detectadas em qualquer frame: {max_people_detected}')
 data['dudes_visible'] = max_people_detected
 
 
-with open('config.json', 'w') as f:
-    json.dump(data, f)
+

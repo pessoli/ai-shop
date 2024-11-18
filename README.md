@@ -4,7 +4,7 @@
 
 ## People Detection with C# and Python
 
-This project integrates **C#** and **Python** to detect the maximum number of people present in a given environment through video analysis. The workflow involves using **YOLOv4** (You Only Look Once, version 4) for object detection and a simple **C#** interface to interact with the user and store results in a **PostgreSQL** database.
+This project integrates **C#** and **Python** to detect the maximum number of people present in a given environment through video analysis. The workflow involves using **YOLO11** (You Only Look Once, version 11) for object detection and a simple **C#** interface to interact with the user and store results in a **PostgreSQL** database.
 
 ---
 

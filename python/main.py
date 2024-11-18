@@ -2,7 +2,6 @@ import cv2
 import torch
 import json
 import os
-import time
 from ultralytics import YOLO
 
 device = torch.device('cpu')
@@ -61,15 +60,15 @@ def startAI(data):
 
 def createJson():
     if os.path.exists(jsonPath):
-        print("config existe")
+        print("config exists")
         with open(jsonPath, 'r') as f:
             data = json.load(f)
-            print("Dados carregados do arquivo:", data)
+            print("data loaded:", data)
             
             startAI(data)
             
     else:
-        print("config não existe, criando novo arquivo")
+        print("config doenst exists, creating another one")
         data = {
             'video_path': 'rsad',
             'dudes_visible': 0,
@@ -78,11 +77,11 @@ def createJson():
         }
         with open(jsonPath, 'w') as json_file:
             json.dump(data, json_file, indent=4)
-            print("Arquivo JSON criado com dados padrão")
+            print("new json file created")
 
     with open(jsonPath, 'w') as json_file:
         json.dump(data, json_file, indent=4)
-        print("Arquivo JSON atualizado")
+        print("json file updated")
 
 createJson()
 

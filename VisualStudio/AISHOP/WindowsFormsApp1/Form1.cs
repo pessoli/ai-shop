@@ -18,75 +18,63 @@ namespace WindowsFormsApp1
         string originalFilePath = @"C:\Users\luk\Desktop\ai-pattern\config.json";
         string pythonPath = @"C:\Users\luk\Desktop\ai-pattern\python/main.py";
         string connectionString = "Host=localhost;Username=postgres;Password=admin;Database=postgres";
+        String videoPath = "";
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
+            try
             {
-                string selectedFilePath = openFileDialog1.FileName;
-                string selectedFileName = Path.GetFileName(selectedFilePath);
+                string content = File.ReadAllText(originalFilePath);
 
-                if (File.Exists(originalFilePath))
+                JObject jsonObject = JObject.Parse(content);
+
+                jsonObject["video_path"] = textBox1.Text;
+
+                File.WriteAllText(originalFilePath, jsonObject.ToString());
+
+                try
                 {
-                    try
+                    ProcessStartInfo startInfo = new ProcessStartInfo(pythonPath);
+                    using (Process process = Process.Start(startInfo))
                     {
-                        string content = File.ReadAllText(originalFilePath);
-
-                        JObject jsonObject = JObject.Parse(content);
-
-                        jsonObject["video_path"] = selectedFilePath;
-
-                        File.WriteAllText(originalFilePath, jsonObject.ToString());
-
-                        try
+                        if (process != null)
                         {
-                            ProcessStartInfo startInfo = new ProcessStartInfo(pythonPath);
-                            using (Process process = Process.Start(startInfo))
-                            {
-                                if (process != null)
-                                {
-                                    process.WaitForExit();
+                            process.WaitForExit();
 
-                                    content = File.ReadAllText(originalFilePath);
+                            content = File.ReadAllText(originalFilePath);
 
-                                    jsonObject = JObject.Parse(content);
+                            jsonObject = JObject.Parse(content);
 
-                                    string video_path = (string)jsonObject["video_path"];
-                                    int personFound = (int)jsonObject["dudes_visible"];
-                                    Console.WriteLine(personFound);
-                                    DateTimeOffset time = DateTimeOffset.Now;
-                                    DateTime timestamp= time.UtcDateTime;  //converts to UTC timestamp, commonly used in brazil
-                                    connectAndInsert(video_path, personFound, timestamp);
-                                    Console.WriteLine("O script Python terminou de ser executado.");
-                                }
-                            }
-                        }
-                        catch(Exception ex)
-                        {
-                            Console.WriteLine(ex.ToString());
+                            string video_path = (string)jsonObject["video_path"];
+                            int personFound = (int)jsonObject["dudes_visible"];
+                            Console.WriteLine(personFound);
+                            DateTimeOffset time = DateTimeOffset.Now;
+                            DateTime timestamp = time.UtcDateTime;  //converts to UTC timestamp, commonly used in brazil
+                            connectAndInsert(video_path, personFound, timestamp);
+                            Console.WriteLine("O script Python terminou de ser executado.");
                         }
                     }
-                    catch (JsonReaderException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        MessageBox.Show("Not allowed to choose a file, open as adm." + ex.ToString());
-                    }
-                    catch (IOException ex)
-                    {
-                        MessageBox.Show("writing error: " + ex.Message);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("error processing:  " + ex.Message);
-                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Arquivo original não encontrado.");
+                    Console.WriteLine(ex.ToString());
                 }
+            }
+            catch (JsonReaderException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show("Not allowed to choose a file, open as adm." + ex.ToString());
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("writing error: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error processing:  " + ex.Message);
             }
         }
 
@@ -114,6 +102,22 @@ namespace WindowsFormsApp1
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Erro: {ex.Message}");
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                string selectedFilePath = openFileDialog1.FileName;
+                string selectedFileName = Path.GetFileName(selectedFilePath);
+
+                if (File.Exists(originalFilePath))
+                {
+                    videoPath = selectedFilePath;
+                    Console.WriteLine(videoPath);
+                    textBox1.Text = videoPath;
                 }
             }
         }
